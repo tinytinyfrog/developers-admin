@@ -5,12 +5,12 @@ import iView from "iview";
 // axios默认配置
 axios.defaults.timeout = 100000; // 超时时间
 // axios.defaults.baseURL = 'http://127.0.0.1/developers-server/rest' // 默认为当前访问地址，部署到服务器时使用该地址
-// axios.defaults.baseURL = "http://192.168.143.130:10031/developers-server/rest";
+axios.defaults.baseURL = "https://delivery.paas.talkweb.com.cn/wiki-server/developers-server/rest";//生产配置
 // 使用开发环境下的代理
-axios.defaults.baseURL = "/api";
-// if (location.href.includes('127.0.0.1') || location.href.includes('localhost')) {
+if (location.href.includes('127.0.0.1') || location.href.includes('localhost')) {
 //   axios.defaults.baseURL = 'http://localhost:8080' // 本地 forum-java 应用服务地址
-// }
+     axios.defaults.baseURL = "/api";
+}
 
 // 整理数据
 // axios.defaults.transformRequest = function (data) {

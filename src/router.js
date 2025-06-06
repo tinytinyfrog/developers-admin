@@ -5,6 +5,6 @@ import Admin from '@/components/admin'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [...Admin]
 })

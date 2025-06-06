@@ -57,7 +57,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, "../output"),
     assetsSubDirectory: "",
-    assetsPublicPath: "http://127.0.0.1:8089/",
+    assetsPublicPath: 'https://delivery.paas.talkweb.com.cn/wiki-admin/',
     productionSourceMap: false,
     // assetsPublicPath: "http://127.0.0.1/admin/",
 
