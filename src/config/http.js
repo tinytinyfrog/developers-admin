@@ -1,10 +1,13 @@
-import axios from 'axios'
-import iView from 'iview'
+import axios from "axios";
+import iView from "iview";
 // import Vue from 'vue'
 
 // axios默认配置
-axios.defaults.timeout = 100000 // 超时时间
-axios.defaults.baseURL = 'http://127.0.0.1/developers-server/rest' // 默认为当前访问地址，部署到服务器时使用该地址
+axios.defaults.timeout = 100000; // 超时时间
+// axios.defaults.baseURL = 'http://127.0.0.1/developers-server/rest' // 默认为当前访问地址，部署到服务器时使用该地址
+// axios.defaults.baseURL = "http://192.168.143.130:10031/developers-server/rest";
+// 使用开发环境下的代理
+axios.defaults.baseURL = "/api";
 // if (location.href.includes('127.0.0.1') || location.href.includes('localhost')) {
 //   axios.defaults.baseURL = 'http://localhost:8080' // 本地 forum-java 应用服务地址
 // }
@@ -23,30 +26,32 @@ axios.defaults.baseURL = 'http://127.0.0.1/developers-server/rest' // 默认为�
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
-    if (config.headers['Content-Type'] !== 'multipart/form-data') {
-      config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+    if (config.headers["Content-Type"] !== "multipart/form-data") {
+      config.headers["Content-Type"] = "application/json;charset=UTF-8";
     }
-    config.headers.token = getCookie('__dp_tk__')
-    return config
+    // config.headers.token = getCookie("__dp_tk__");
+    // 使用硬编码的token
+    config.headers.token = "77a92fce48134eebbdb8ba6b08f1ebf2";
+    return config;
   },
   error => {
-    return Promise.reject(error.response)
+    return Promise.reject(error.response);
   }
-)
+);
 
-function getCookie (cName) {
+function getCookie(cName) {
   if (document.cookie.length > 0) {
-    let cStart = document.cookie.indexOf(cName + '=')
+    let cStart = document.cookie.indexOf(cName + "=");
     if (cStart !== -1) {
-      cStart = cStart + cName.length + 1
-      let cEnd = document.cookie.indexOf(';', cStart)
+      cStart = cStart + cName.length + 1;
+      let cEnd = document.cookie.indexOf(";", cStart);
       if (cEnd === -1) {
-        cEnd = document.cookie.length
+        cEnd = document.cookie.length;
       }
-      return unescape(document.cookie.substring(cStart, cEnd))
+      return unescape(document.cookie.substring(cStart, cEnd));
     }
   }
-  return ''
+  return "";
 }
 
 // 路由响应拦截
@@ -55,14 +60,15 @@ axios.interceptors.response.use(
   response => {
     // console.info('response info ===>', response) 80008998
     if (response.data.code === 80008998) {
-      iView.Message.error(response.data.message)
-      window.location.href = window.location.origin + '/?toast=' + response.data.message
+      iView.Message.error(response.data.message);
+      window.location.href =
+        window.location.origin + "/?toast=" + response.data.message;
     }
-    return response.data
+    return response.data;
   },
   error => {
-    return Promise.reject(error.response) // 返回接口返回的错误信息
+    return Promise.reject(error.response); // 返回接口返回的错误信息
   }
-)
+);
 
-export default axios
+export default axios;

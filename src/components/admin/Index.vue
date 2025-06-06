@@ -50,8 +50,8 @@
 }
 </style>
 <template>
-  <div class="admin" :style="{height: containerHeight}">
-    <Layout :style="{height: '100%'}">
+  <div class="admin" :style="{ height: containerHeight }">
+    <Layout :style="{ height: '100%' }">
       <Sider
         ref="side1"
         hide-trigger
@@ -72,18 +72,25 @@
           </MenuItem>
           <Submenu name="user">
             <template slot="title">
-                <Icon type="ios-man" />
-                <span>用户</span>
+              <Icon type="ios-man" />
+              <span>用户</span>
             </template>
             <MenuItem name="user-manager">用户管理</MenuItem>
             <MenuItem name="user-opt-log">操作日志</MenuItem>
           </Submenu>
           <Submenu name="article">
             <template slot="title">
-                <Icon type="ios-paper" />
-                <span>文章</span>
+              <Icon type="ios-paper" />
+              <span>文章</span>
             </template>
             <MenuItem name="article-manager">文章管理</MenuItem>
+            <MenuItem name="news-manage">新闻管理</MenuItem>
+            <MenuItem name="monMagazine-manage">月刊管理</MenuItem>
+            <MenuItem name="salon-manage">沙龙管理</MenuItem>
+            <MenuItem name="master-manage">专家墙管理</MenuItem>
+            <MenuItem name="honor-manage">荣誉墙管理</MenuItem>
+            <MenuItem name="team-manage">优秀团队管理</MenuItem>
+            <!-- <MenuItem name="news-manage">新闻管理</MenuItem> -->
           </Submenu>
           <MenuItem name="faq-manager">
             <Icon type="ios-help-circle" />
@@ -91,8 +98,8 @@
           </MenuItem>
           <Submenu name="config">
             <template slot="title">
-                <Icon type="ios-paper" />
-                <span>配置</span>
+              <Icon type="ios-paper" />
+              <span>配置</span>
             </template>
             <MenuItem name="tag-manager">标签管理</MenuItem>
             <MenuItem name="config-carousel">轮播图配置</MenuItem>
@@ -109,8 +116,15 @@
             size="24"
           ></Icon>
         </Header>
-        <Content :style="{ margin: '20px', padding: '20px', background: '#fff', minHeight: '260px' }">
-          <router-view/>
+        <Content
+          :style="{
+            margin: '20px',
+            padding: '20px',
+            background: '#fff',
+            minHeight: '260px'
+          }"
+        >
+          <router-view />
         </Content>
       </Layout>
     </Layout>
@@ -118,38 +132,38 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       isCollapsed: false,
-      containerHeight: '500px'
-    }
+      containerHeight: "500px"
+    };
   },
   computed: {
-    rotateIcon () {
-      return ['menu-icon', this.isCollapsed ? 'rotate-icon' : '']
+    rotateIcon() {
+      return ["menu-icon", this.isCollapsed ? "rotate-icon" : ""];
     },
-    menuitemClasses () {
-      return ['menu-item', this.isCollapsed ? 'collapsed-menu' : '']
+    menuitemClasses() {
+      return ["menu-item", this.isCollapsed ? "collapsed-menu" : ""];
     }
   },
   methods: {
-    collapsedSider () {
-      this.$refs.side1.toggleCollapse()
+    collapsedSider() {
+      this.$refs.side1.toggleCollapse();
     },
-    menuSelect (name) {
+    menuSelect(name) {
       if (location.href.endsWith(name)) {
-        return
+        return;
       }
-      if (name === 'home') {
-        this.$router.push('/admin/')
+      if (name === "home") {
+        this.$router.push("/admin/");
       } else {
-        this.$router.push('/admin/' + name)
+        this.$router.push("/admin/" + name);
       }
     }
   },
-  created () {
-    let allHeight = window.innerHeight
-    this.containerHeight = allHeight + 'px'
+  created() {
+    let allHeight = window.innerHeight;
+    this.containerHeight = allHeight + "px";
   }
-}
+};
 </script>
