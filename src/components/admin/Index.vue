@@ -96,6 +96,14 @@
             <Icon type="ios-help-circle" />
             <span>问答管理</span>
           </MenuItem>
+          <Submenu name="auth">
+            <template slot="title">
+              <Icon type="ios-cog" />
+              <span>权限管理</span>
+            </template>
+            <MenuItem name="role-manage">角色管理</MenuItem>
+            <MenuItem name="org-manage">部门管理</MenuItem>
+          </Submenu>
           <Submenu name="config">
             <template slot="title">
               <Icon type="ios-paper" />

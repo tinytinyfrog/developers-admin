@@ -12,6 +12,8 @@ import SalonManage from "./SalonManage.vue";
 import MasterManage from "./MasterManage.vue";
 import HonorManage from "./HonorManage.vue";
 import TeamManage from "./TeamManage.vue";
+import OrgManage from './OrgManage.vue';
+import RoleManage from './RoleManage.vue'
 
 export default [
   {
@@ -69,6 +71,14 @@ export default [
       {
         path: "/admin/team-manage",
         component: TeamManage
+      },
+      {
+        path: "/admin/org-manage",
+        component: OrgManage
+      },
+      {
+        path: "/admin/role-manage",
+        component: RoleManage
       }
     ]
   }
