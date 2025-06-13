@@ -104,7 +104,7 @@
     <!-- 新增/编辑弹窗 -->
     <Modal
       v-model="formModal"
-      :title="isEdit ? '编辑活动' : '新增活动'"
+      :title="isEdit ? '编辑' : '新增'"
       width="850"
       @on-ok="handleFormSubmit"
       @on-cancel="resetForm"
@@ -183,7 +183,7 @@
 
     <!-- 确认删除弹窗 -->
     <Modal v-model="deleteModal" title="确认删除" @on-ok="confirmDelete">
-      <p>确定要删除该活动吗？此操作不可逆。</p>
+      <p>确定要删除此条数据吗？此操作不可逆。</p>
     </Modal>
   </div>
 </template>
@@ -372,7 +372,7 @@ export default {
       this.getActivityDetail(row.id);
       this.formModal = true;
     },
-    // 获取活动详情
+    // 获取详情
     getActivityDetail(id) {
       this.$Loading.start();
       this.$http.post(`config/honors-detail`, { id }).then(res => {

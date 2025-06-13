@@ -105,7 +105,7 @@
     <!-- 新增/编辑弹窗 -->
     <Modal
       v-model="formModal"
-      :title="isEdit ? '编辑活动' : '新增活动'"
+      :title="isEdit ? '编辑' : '新增'"
       width="850"
       @on-ok="handleFormSubmit"
       @on-cancel="resetForm"
@@ -116,13 +116,13 @@
         :rules="formRules"
         :label-width="100"
       >
-        <FormItem label="活动标题" prop="title">
-          <Input v-model="formData.title" placeholder="请输入活动标题" />
+        <FormItem label="标题" prop="title">
+          <Input v-model="formData.title" placeholder="请输入标题" />
         </FormItem>
-        <FormItem label="活动副标题" prop="subtitle">
-          <Input v-model="formData.subtitle" placeholder="请输入活动副标题" />
+        <FormItem label="副标题" prop="subtitle">
+          <Input v-model="formData.subtitle" placeholder="请输入副标题" />
         </FormItem>
-        <FormItem label="活动封面" prop="coverImageUrl">
+        <FormItem label="封面" prop="coverImageUrl">
           <Row>
             <Col span="18">
               <img
@@ -236,8 +236,8 @@
             placeholder="请输入分享简介"
           />
         </FormItem>
-        <FormItem label="活动部门" prop="deptName">
-          <Input v-model="formData.deptName" placeholder="请输入活动部门" />
+        <FormItem label="部门" prop="deptName">
+          <Input v-model="formData.deptName" placeholder="请输入部门" />
         </FormItem>
         <FormItem label="发布时间" prop="publishTime">
           <DatePicker
@@ -253,7 +253,7 @@
 
     <!-- 确认删除弹窗 -->
     <Modal v-model="deleteModal" title="确认删除" @on-ok="confirmDelete">
-      <p>确定要删除该活动吗？此操作不可逆。</p>
+      <p>确定要删除此条数据吗？此操作不可逆。</p>
     </Modal>
   </div>
 </template>
@@ -288,17 +288,17 @@ export default {
           width: 60
         },
         {
-          title: "活动标题",
+          title: "标题",
           key: "title",
           minWidth: 120
         },
         {
-          title: "活动副标题",
+          title: "副标题",
           key: "subtitle",
           minWidth: 120
         },
         {
-          title: "活动封面",
+          title: "封面",
           key: "authorAvatar",
           width: 120,
           render: (h, params) => {
@@ -340,7 +340,7 @@ export default {
           minWidth: 120
         },
         {
-          title: "活动部门",
+          title: "部门",
           key: "deptName",
           minWidth: 120
         },
@@ -375,12 +375,12 @@ export default {
         publishTime: ""
       },
       formRules: {
-        title: [{ required: true, message: "请输入活动标题", trigger: "blur" }],
+        title: [{ required: true, message: "请输入标题", trigger: "blur" }],
         coverImageUrl: [
-          { required: true, message: "请输入活动封面url", trigger: "blur" }
+          { required: true, message: "请输入封面url", trigger: "blur" }
         ],
         subtitle: [
-          { required: true, message: "请输入活动副标题", trigger: "blur" }
+          { required: true, message: "请输入副标题", trigger: "blur" }
         ],
         speakerName: [
           { required: true, message: "请输入分享者姓名", trigger: "blur" }
@@ -390,7 +390,7 @@ export default {
           { required: true, message: "请输入分享简介", trigger: "blur" }
         ],
         deptName: [
-          { required: true, message: "请输入活动部门", trigger: "blur" }
+          { required: true, message: "请输入部门", trigger: "blur" }
         ]
       },
       // 删除相关数据
@@ -447,7 +447,7 @@ export default {
       this.getActivityDetail(row.id);
       this.formModal = true;
     },
-    // 获取活动详情
+    // 获取详情
     getActivityDetail(id) {
       this.$Loading.start();
       this.$http.post(`config/activity-info-detail`, { id }).then(res => {

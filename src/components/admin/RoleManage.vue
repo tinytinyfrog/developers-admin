@@ -116,10 +116,10 @@
         :label-width="100"
       >
         <FormItem label="角色名称" prop="roleName">
-          <Input v-model="formData.title" placeholder="请输入角色名称" />
+          <Input v-model="formData.roleName" placeholder="请输入角色名称" />
         </FormItem>
         <FormItem label="角色编码" prop="roleKey">
-          <Input v-model="formData.number" placeholder="请输入角色编码" />
+          <Input v-model="formData.roleKey" placeholder="请输入角色编码" />
         </FormItem>
       </Form>
     </Modal>
