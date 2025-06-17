@@ -29,6 +29,12 @@ axios.interceptors.request.use(
     if (config.headers["Content-Type"] !== "multipart/form-data") {
       config.headers["Content-Type"] = "application/json;charset=UTF-8";
     }
+    if (config.method === 'get') {
+      // 获取当前时间的时间戳
+      const timestamp = new Date().getTime();
+      // 将时间戳添加到URL的查询参数中
+      config.url += (config.url.includes('?') ? '&' : '?') + `_t=${timestamp}`;
+    }
     // config.headers.token = getCookie("__dp_tk__");
     // 使用硬编码的token
     config.headers.token = "77a92fce48134eebbdb8ba6b08f1ebf2";

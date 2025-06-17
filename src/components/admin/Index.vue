@@ -111,6 +111,7 @@
             </template>
             <MenuItem name="tag-manager">标签管理</MenuItem>
             <MenuItem name="config-carousel">轮播图配置</MenuItem>
+            <MenuItem name="channel-manage">栏目管理</MenuItem>
           </Submenu>
         </Menu>
       </Sider>

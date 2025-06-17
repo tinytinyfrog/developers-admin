@@ -4,6 +4,9 @@
   height: 100%;
   overflow: scroll;
 }
+.set-wrap {
+  display: flex;
+}
 </style>
 <template>
   <div class="admin-user">
@@ -36,9 +39,7 @@
       <template slot-scope="{ row, index }" slot="action">
         <Button v-if="row.state === '禁用'" type="success" size="small" @click="enable(row)">启用</Button>
         <Button v-if="row.state !== '禁用'" type="error" size="small" @click="disable(row)">禁用</Button>
-
-        <Button v-if="row.role === '用户'" type="success" size="small" @click="updateRole(row.id, true)">设为管理员</Button>
-        <Button v-if="row.role === '管理员'" type="error" size="small" @click="updateRole(row.id, false)">设为用户</Button>
+        <Button type="success" size="small" @click="() =>handleOpen(row)">权限管理</Button>
       </template>
     </Table>
     <Page
@@ -50,6 +51,26 @@
       @on-change="goPage"
       @on-page-size-change="pageSizeChange"
       :style="{marginTop: '10px', textAlign: 'right'}" />
+    <Modal
+        v-model="setModal"
+        title="设置角色"
+        width="450"
+        @on-ok="handleFormSubmit"
+        @on-cancel="setModal = false  "
+    >
+        <div class="set-wrap">
+         <div style="width: 80px;">选择角色：</div> 
+         <Select  placeholder="请输入角色名称" v-model="roleId" >
+          <Option
+            v-for="(item,index) of roleList"
+            :value="item.id"
+            :key="index"
+            >{{ item.roleName }}
+            </Option>
+         </Select>
+        </div>
+ 
+    </Modal>
   </div>
 </template>
 <script>
@@ -148,7 +169,11 @@ export default {
       tableData: [],
       tableTotal: 0,
       tablePageSize: 10,
-      tablePageNo: 1
+      tablePageNo: 1,
+      setModal:false,
+      roleList:[],
+      roleId: undefined,
+      currenUser:null
     }
   },
   methods: {
@@ -169,6 +194,23 @@ export default {
         this.tableTotal = res.data.total
       })
     },
+    handleOpen(row){
+      this.setModal =true
+      this.currenUser = row
+      if(row.roleId) {
+        this.roleId = row.roleId
+      }
+    },
+    getMenuList(){
+      this.$Loading.start()
+      this.$http.post(`accredit/page-role`,{
+        pageSize:9999,pageNo:1,filter:{}
+      }).then((res) => {
+        this.roleList = res.data.list
+      }).finally(() => {
+        this.$Loading.finish()
+      })
+    },
     search () {
       this.tablePageNo = 1
       this.loadData()
@@ -187,6 +229,22 @@ export default {
     },
     disable (row) {
       this.updateState('disable', row.id)
+    },
+    handleFormSubmit(){
+      this.$Loading.start()
+      this.$http.post(`accredit/update-user-role`,{
+         roleId:this.roleId,
+         userId:this.currenUser.id,
+      }).then((res) => {
+         if(res.code === 0) {
+          this.$Message.success('修改成功')
+          this.loadData()
+         }else {
+          this.$Message.error(res.message)
+         }
+      }).finally(() => {
+        this.$Loading.finish()
+      })
     },
     updateState (path, id) {
       this.$Loading.start()
@@ -218,6 +276,14 @@ export default {
     document.title = '用户管理'
     this.tablePageNo = 1
     this.loadData()
+    this.getMenuList()
+  },
+  watch:{
+    setModal(oVal) {
+      if(!oVal) {
+        this.roleId = undefined
+      }
+    }
   }
 }
 </script>

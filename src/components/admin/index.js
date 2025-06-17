@@ -14,6 +14,7 @@ import HonorManage from "./HonorManage.vue";
 import TeamManage from "./TeamManage.vue";
 import OrgManage from './OrgManage.vue';
 import RoleManage from './RoleManage.vue'
+import ChannelManage from './ChannelManage.vue'
 
 export default [
   {
@@ -79,6 +80,10 @@ export default [
       {
         path: "/admin/role-manage",
         component: RoleManage
+      },
+      {
+        path: "/admin/channel-manage",
+        component: ChannelManage
       }
     ]
   }
