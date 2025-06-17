@@ -60,7 +60,7 @@
     >
         <div class="set-wrap">
          <div style="width: 80px;">选择角色：</div> 
-         <Select  placeholder="请输入角色名称" v-model="roleId" >
+         <Select  placeholder="请选择角色名称" v-model="roleId" >
           <Option
             v-for="(item,index) of roleList"
             :value="item.id"

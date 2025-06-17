@@ -98,13 +98,13 @@
     </Row>
     <Table border :columns="tableColumns" :data="tableData">
       <template slot-scope="{ row, index }" slot="action">
-        <!-- <Button
+        <Button
           type="primary"
           size="small"
           style="margin-right: 5px"
           @click="handleEdit(row)"
           >编辑</Button
-        > -->
+        >
         <Button type="error" size="small" @click="handleDelete(row)"
           >删除</Button
         >
@@ -383,7 +383,7 @@ export default {
             return;
           }
           this.$Loading.finish();
-          this.tableData =res.data.children.length === 0 ?[res.data] :res.data.children
+          this.tableData =res.data.children.length === 0 ?[res.data] :[res.data,...res.data.children]
         });
     },
     onCheck(checkedKeys){
@@ -424,7 +424,8 @@ export default {
     // 处理编辑
     handleEdit(row) {
       this.isEdit = true;
-      this.getActivityDetail(row.id);
+      // this.getActivityDetail(row.id);
+      this.formData = row
       this.formModal = true;
     },
     // 获取活动详情

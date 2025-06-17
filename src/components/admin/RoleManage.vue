@@ -148,7 +148,7 @@
           <Input v-model="formData.roleName" placeholder="请输入角色名称" />
         </FormItem>
         <FormItem label="角色编码" prop="roleKey">
-          <Input v-model="formData.roleKey" placeholder="请输入角色编码" />
+          <Input v-model="formData.roleKey" placeholder="请输入角色编码" :disabled="['ADMIN', 'SUPER_ADMIN','GUEST','USER'].includes(formData.roleKey)" />
         </FormItem>
       </Form>
     </Modal>
@@ -166,7 +166,7 @@
                 <Checkbox v-model="checkValue" >全选/全不选</Checkbox>
               </div>
               <div class="tree-wrap">
-                <a-tree :treeData="treeData"   @expand="onExpand" :expandedKeys.sync="expandKeys" checkable :checkedKeys.sync="checkedKeys" @check="onCheck">
+                <a-tree :treeData="treeData"   @expand="onExpand" :expandedKeys.sync="expandKeys" checkable checkStrictly :checkedKeys="checkedKeys" @check="onCheck" aria-checked="">
                 </a-tree>
               </div>
             </div>
@@ -303,7 +303,7 @@ export default {
       this.expandedKeys = expandedKeys; 
     },
     onCheck(checkedKeys){
-      this.checkedKeys = checkedKeys
+      this.checkedKeys = checkedKeys.checked
     },
     loadData() {
       this.$Loading.start();
@@ -397,6 +397,7 @@ export default {
       //this.getActivityDetail(row.id);
       this.formData = { roleName:row.roleName,roleKey:row.roleKey,roleId:row.id,userId:row.id };
       this.formModal = true;
+
     },
     // 获取活动详情
     getActivityDetail(id) {
