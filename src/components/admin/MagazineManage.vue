@@ -193,7 +193,6 @@
                       :format="[
                         'pdf',
                         'doc',
-                        'docx',
                         'xls',
                         'xlsx',
                         'ppt',
