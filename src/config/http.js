@@ -35,9 +35,9 @@ axios.interceptors.request.use(
       // 将时间戳添加到URL的查询参数中
       config.url += (config.url.includes('?') ? '&' : '?') + `_t=${timestamp}`;
     }
-    // config.headers.token = getCookie("__dp_tk__");
+    config.headers.token = getCookie("__dp_tk__");
     // 使用硬编码的token
-    config.headers.token = "77a92fce48134eebbdb8ba6b08f1ebf2";
+    // config.headers.token = "77a92fce48134eebbdb8ba6b08f1ebf2";
     return config;
   },
   error => {
