@@ -262,6 +262,7 @@
 import VueMarkdown from "vue-markdown";
 import { Editor, Viewer } from "@bytemd/vue";
 import "bytemd/dist/index.css";
+import { getCookie } from "../../lib/util";
 
 export default {
   components: {
@@ -271,7 +272,7 @@ export default {
   },
   data() {
     return {
-      pageToken: "77a92fce48134eebbdb8ba6b08f1ebf2",
+      pageToken:getCookie('__dp_tk__') || "77a92fce48134eebbdb8ba6b08f1ebf2",
       editor: null,
       editorContent: "",
       filter: {

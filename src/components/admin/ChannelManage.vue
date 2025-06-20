@@ -257,6 +257,7 @@
 // Using a simpler approach without external editor libraries
 import VueMarkdown from "vue-markdown";
 import { Editor, Viewer } from "@bytemd/vue";
+import { getCookie } from "../../lib/util";
 import "bytemd/dist/index.css";
 import { Select } from "iview";
 
@@ -269,7 +270,7 @@ export default {
   data() {
     const treeData = []
     return {
-      pageToken: "77a92fce48134eebbdb8ba6b08f1ebf2",
+      pageToken:getCookie('__dp_tk__') || "77a92fce48134eebbdb8ba6b08f1ebf2",
       // editor: null,
       // editorContent: "",
       filter: {
