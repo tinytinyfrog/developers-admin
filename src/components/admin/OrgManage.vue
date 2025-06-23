@@ -134,6 +134,7 @@
                 action="/api/file/image/upload"
                 :headers="{ token: pageToken }"
                 :on-success="handleImageUploadSuccess"
+                 :on-format-error="handleFormatError"
                 :format="['jpg', 'jpeg', 'png']"
                 :max-size="2048"
                 :show-upload-list="false"
@@ -291,6 +292,9 @@ export default {
     },
     handleEditorChange(value) {
       this.formData.markdownContent = value;
+    },
+    handleFormatError (file) {
+       this.$Message.warning('不支持上传此类型文件');
     },
     search() {
       this.tablePageNo = 1;

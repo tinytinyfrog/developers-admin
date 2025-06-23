@@ -131,6 +131,7 @@
                 action="/api/file/image/upload"
                 :headers="{ token: pageToken }"
                 :on-success="handleCoverUploadSuccess"
+                :on-format-error="handleFormatError"
                 :format="['jpg', 'jpeg', 'png']"
                 :max-size="2048"
                 :show-upload-list="false"
@@ -190,6 +191,7 @@
                       action="/api/file/file/upload"
                       :headers="{ token: pageToken }"
                       :on-success="handleAttachmentUploadSuccess"
+                      :on-format-error="handleFormatError"
                       :format="[
                         'pdf',
                         'doc',
@@ -202,6 +204,7 @@
                       :show-upload-list="false"
                     >
                       <Button icon="ios-cloud-upload-outline">上传附件</Button>
+                      <span>支持pdf,doc,xls,ppt</span>
                     </Upload>
                   </Col>
                 </Row>
@@ -533,6 +536,9 @@ export default {
         this.$Message.success(res.message);
         this.loadData();
       });
+    },
+    handleFormatError (file) {
+       this.$Message.warning('不支持上传此类型文件');
     },
     // 处理封面上传成功
     handleCoverUploadSuccess(response, file) {
