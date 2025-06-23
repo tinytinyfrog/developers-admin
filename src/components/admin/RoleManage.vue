@@ -197,6 +197,7 @@
 import VueMarkdown from "vue-markdown";
 import { Editor, Viewer } from "@bytemd/vue";
 import "bytemd/dist/index.css";
+import { getCookie } from "../../lib/util";
 import { Select } from "iview";
 import { Checkbox, Empty } from "ant-design-vue";
 
@@ -214,7 +215,7 @@ export default {
       filter: {
         auditState: null,
         userId: null,
-        roleName: null,
+        roleName: undefined,
         commentId: null,
         honorsType: 2
       },
