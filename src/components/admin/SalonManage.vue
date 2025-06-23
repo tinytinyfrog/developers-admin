@@ -148,45 +148,44 @@
         <FormItem label="附件地址" prop="attachmentUrl">
           <Row>
             <Col span="18">
-              <div v-if="formData.attachmentUrl">
-                <div
-                  style="margin-bottom: 10px; display: flex; align-items: center;"
-                >
-                  <a
-                    href="javascript:void(0);"
-                    style="margin-right: 10px; color: #2d8cf0; cursor: pointer;"
-                    @click="openFilePreview"
+                <div v-for="(item,index) of formData.attachmentJson" :key="index" >
+                  <div
+                    style="margin-bottom: 10px; display: flex; align-items: center;"
                   >
-                    {{ formData.attachmentName || "查看附件" }}
-                  </a>
-                  <Button
-                    type="text"
-                    icon="ios-trash"
-                    @click="removeAttachment"
-                    style="color: #ed4014;"
-                    >删除</Button
-                  >
-                  <!-- v-if="isPdfFile(formData.attachmentUrl)" -->
-                  <Button
-                    type="primary"
-                    size="small"
-                    @click="openFilePreview"
-                    style="margin-left: 10px;"
-                    v-if="canPreviewFile(formData.attachmentUrl)"
-                  >
-                    预览文件
-                  </Button>
+                    <a
+                      href="javascript:void(0);"
+                      style="margin-right: 10px; color: #2d8cf0; cursor: pointer;"
+                      @click="e =>openFilePreview(item)"
+                    >
+                      {{ item.name || "查看附件" }}
+                    </a>
+                    <Button
+                      type="text"
+                      icon="ios-trash"
+                      @click="e =>removeAttachment(index)"
+                      style="color: #ed4014;"
+                      >删除</Button
+                    >
+                    <Button
+                      type="primary"
+                      size="small"
+                      @click="e =>openFilePreview(item)"
+                      style="margin-left: 10px;"
+                      v-if="canPreviewFile(item.url)"
+                    >
+                      预览文件
+                    </Button>
+                  </div>
                 </div>
-              </div>
-              <div v-if="!formData.attachmentUrl">
+              <div >
                 <Row>
-                  <Col span="12">
+                  <!-- <Col span="12">
                     <Input
                       v-model="formData.attachmentUrl"
                       placeholder="请输入附件地址"
                     />
-                  </Col>
-                  <Col style="margin-left: 10px;" span="10">
+                  </Col> -->
+                  <Col span="10">
                     <Upload
                       action="/api/file/file/upload"
                       :headers="{ token: pageToken }"
@@ -202,9 +201,9 @@
                       ]"
                       :max-size="5120"
                       :show-upload-list="false"
+                      :multiple="true"
                     >
                       <Button icon="ios-cloud-upload-outline">上传附件</Button>
-                      <span>支持pdf,doc,xls,ppt</span>
                     </Upload>
                   </Col>
                 </Row>
@@ -269,9 +268,9 @@ export default {
     Viewer
   },
   data() {
-    console.log(getCookie('__dp_tk__') || "77a92fce48134eebbdb8ba6b08f1ebf2",'ddd');
+    console.log(getCookie('__dp_tk__') || "3e47a55147c246b6ac4c23af506e80ef",'ddd');
     return {
-      pageToken:getCookie('__dp_tk__') || "77a92fce48134eebbdb8ba6b08f1ebf2",
+      pageToken:getCookie('__dp_tk__') || "3e47a55147c246b6ac4c23af506e80ef",
       editor: null,
       editorContent: "",
       filter: {
@@ -363,8 +362,7 @@ export default {
         title: "",
         subtitle: "",
         coverImageUrl: "",
-        attachmentUrl: "",
-        attachmentName: "",
+        attachmentJson:[],
         speakerName: "",
         topic: "",
         summary: "",
@@ -443,6 +441,7 @@ export default {
           return;
         }
         this.formData = { ...res.data, activityType: 2 };
+        this.formData.attachmentJson = JSON.parse(res.data.attachmentJson)
         // 设置富文本编辑器内容
         if (this.formData.content) {
           this.editorContent = this.formData.content;
@@ -486,6 +485,7 @@ export default {
         if (this.formData.id == null || this.formData.id == "null") {
           this.formData.id = "";
         }
+        this.formData.attachmentJson = JSON.stringify(this.formData.attachmentJson)
         this.$Loading.start();
         this.$http
           .post("config/save-activity-info", this.formData)
@@ -509,8 +509,7 @@ export default {
         title: "",
         subtitle: "",
         coverImageUrl: "",
-        attachmentUrl: "",
-        attachmentName: "",
+        attachmentJson:[],
         speakerName: "",
         topic: "",
         summary: "",
@@ -552,8 +551,7 @@ export default {
     // 处理附件上传成功
     handleAttachmentUploadSuccess(response, file) {
       if (response.code === 0) {
-        this.formData.attachmentUrl = response.data;
-        this.formData.attachmentName = file.name;
+        this.formData.attachmentJson.push({name:file.name,url:response.data})
         this.$Message.success("附件上传成功");
       } else {
         this.$Message.error(response.message || "上传失败");
@@ -565,9 +563,8 @@ export default {
       return !!url;
     },
     // 删除附件
-    removeAttachment() {
-      this.formData.attachmentUrl = "";
-      this.formData.attachmentName = "";
+    removeAttachment(index) {
+      this.formData.attachmentJson.splice(index,1)
       this.$Message.success("附件删除成功");
     },
     isPdfFile(url) {
@@ -580,16 +577,16 @@ export default {
       return window.btoa(unescape(encodeURIComponent(str || "")));
     },
     // 添加超时处理，防止loading状态一直存在
-    openFilePreview() {
+    openFilePreview(item) {
       try {
-        if (!this.formData.attachmentUrl) {
+        if (!item.url) {
           this.$Message.warning("没有可预览的文件");
           return;
         }
 
         window.open(
           "https://delivery.paas.talkweb.com.cn/kkfile/onlinePreview?url=" +
-            encodeURIComponent(this.base64Encode(this.formData.attachmentUrl))
+            encodeURIComponent(this.base64Encode(item.url))
         );
       } catch (error) {
         console.error("文件预览失败:", error);
