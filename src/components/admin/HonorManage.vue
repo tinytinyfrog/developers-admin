@@ -65,7 +65,7 @@
 <template>
   <div class="admin-faq-manager">
     <Breadcrumb :style="{ marginBottom: '10px' }">
-      <BreadcrumbItem>专家墙管理</BreadcrumbItem>
+      <BreadcrumbItem>荣耀墙管理</BreadcrumbItem>
     </Breadcrumb>
     <Row :style="{ marginBottom: '10px' }">
       <Col span="4">
