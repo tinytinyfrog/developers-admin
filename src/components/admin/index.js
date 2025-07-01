@@ -15,6 +15,7 @@ import TeamManage from "./TeamManage.vue";
 import OrgManage from './OrgManage.vue';
 import RoleManage from './RoleManage.vue'
 import ChannelManage from './ChannelManage.vue'
+import AiProject from './AiProject.vue'
 
 export default [
   {
@@ -84,6 +85,10 @@ export default [
       {
         path: "/admin/channel-manage",
         component: ChannelManage
+      },
+      {
+        path: "/admin/ai-project",
+        component: AiProject
       }
     ]
   }
