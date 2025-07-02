@@ -66,6 +66,7 @@
 <template>
   <div class="admin-faq-manager">
     <Breadcrumb :style="{ marginBottom: '10px' }">
+      <BreadcrumbItem>文章</BreadcrumbItem>
       <BreadcrumbItem>新闻管理</BreadcrumbItem>
     </Breadcrumb>
     <Row :style="{ marginBottom: '10px' }">

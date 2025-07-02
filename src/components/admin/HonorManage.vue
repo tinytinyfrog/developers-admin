@@ -65,7 +65,8 @@
 <template>
   <div class="admin-faq-manager">
     <Breadcrumb :style="{ marginBottom: '10px' }">
-      <BreadcrumbItem>荣耀墙管理</BreadcrumbItem>
+      <BreadcrumbItem>文章</BreadcrumbItem>
+      <BreadcrumbItem>荣誉墙管理</BreadcrumbItem>
     </Breadcrumb>
     <Row :style="{ marginBottom: '10px' }">
       <Col span="4">
@@ -474,7 +475,7 @@ export default {
     }
   },
   created() {
-    document.title = "专家墙管理";
+    document.title = "荣誉墙管理";
     this.tablePageNo = 1;
     this.loadData();
   }

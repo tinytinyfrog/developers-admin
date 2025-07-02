@@ -65,6 +65,7 @@
 <template>
   <div class="admin-faq-manager">
     <Breadcrumb :style="{ marginBottom: '10px' }">
+      <BreadcrumbItem>权限管理</BreadcrumbItem>
       <BreadcrumbItem>部门管理</BreadcrumbItem>
     </Breadcrumb>
     <Row :style="{ marginBottom: '10px' }">

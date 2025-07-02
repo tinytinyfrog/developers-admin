@@ -65,6 +65,7 @@
 <template>
   <div class="admin-faq-manager">
     <Breadcrumb :style="{ marginBottom: '10px' }">
+      <BreadcrumbItem>文章</BreadcrumbItem>
       <BreadcrumbItem>月刊管理</BreadcrumbItem>
     </Breadcrumb>
     <Row :style="{ marginBottom: '10px' }">
@@ -603,7 +604,7 @@ export default {
     }
   },
   created() {
-    document.title = "新闻管理";
+    document.title = "月刊管理";
     this.tablePageNo = 1;
     this.loadData();
   }

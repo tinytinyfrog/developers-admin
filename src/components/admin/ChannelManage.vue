@@ -85,6 +85,7 @@
     </div>
     <div class="admin-channel-right">
     <Breadcrumb :style="{ marginBottom: '10px' }">
+      <BreadcrumbItem>配置</BreadcrumbItem>
       <BreadcrumbItem>栏目管理</BreadcrumbItem>
     </Breadcrumb>
     <Row :style="{ marginBottom: '10px' }">
@@ -526,7 +527,7 @@ export default {
     }
   },
   created() {
-    document.title = "部门管理";
+    document.title = "栏目管理";
     this.tablePageNo = 1;
     this.loadTreeData();
   }
