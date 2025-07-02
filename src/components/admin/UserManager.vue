@@ -93,16 +93,6 @@
         <FormItem label="邮箱" prop="email">
           <Input v-model="formData.email" placeholder="请输入邮箱" />
         </FormItem>
-        <FormItem label="角色" prop="role" v-if="!isEdit">
-          <Select  placeholder="请选择角色名称" v-model="roleId" >
-            <Option
-              v-for="(item,index) of roleList"
-              :value="item.id"
-              :key="index"
-              >{{ item.roleName }}
-              </Option>
-          </Select>
-        </FormItem>
         <FormItem label="性别 " prop="sex">
            <RadioGroup v-model="formData.sex">
              <Radio v-for="item of sexList" :label="item.key" :key="item.key">{{ item.value }}</Radio>
@@ -254,7 +244,6 @@ export default {
           trigger: "blur"
         }
         ],
-        role: [{ required: true, message: "请输入角色", trigger: "blur" }],
         sex: [
           { required: true, message: "请输入性别", trigger: "blur" }
         ],
@@ -266,7 +255,6 @@ export default {
         id: null,
         nickname: "",
         email: "",  
-        role: "USER",
         sex: "MALE",
         password: "",
         avatar: ""
@@ -279,7 +267,6 @@ export default {
         id: null,
         nickname: "",
         email: "",  
-        role: "USER",
         sex: "MALE",
         password: "",
         avatar: ""
