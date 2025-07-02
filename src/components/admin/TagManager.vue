@@ -120,7 +120,7 @@ export default {
         title: 'id',
         key: 'id',
         fixed: 'left',
-        width: 60
+        width: 100
       }, {
         title: '所属分组',
         key: 'groupName',

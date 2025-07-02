@@ -431,7 +431,7 @@ export default {
     handleEdit(row) {
       this.isEdit = true;
       // this.getActivityDetail(row.id);
-      this.formData = row
+      this.formData = {...row}
       this.formModal = true;
     },
     // 获取活动详情
