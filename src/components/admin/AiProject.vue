@@ -119,18 +119,20 @@ export default {
         title: 'id',
         key: 'id',
         fixed: 'left',
-        width: 60
+        width: 100,
+        ellipsis:true
       },
       {
         title: '名称',
         key: 'name',
-        width: 100
+        width: 200
       },
       {
         title: '封面',
         key: 'imgUrl',
         fixed: 'left',
-        width: 100,
+        width: 200,
+        ellipsis:true,
         render: (h, params) => {
           return h('img', {
             attrs: {
@@ -148,14 +150,20 @@ export default {
         title: '跳转地址',
         key: 'actionUrl',
         fixed: 'left',
+        ellipsis:true,
         render: (h, params) => {
           return h('a', {
+            attrs: {
+            
+              title: params.row.actionUrl
+            },
             props: {
-              href: params.row.actionUrl
+              href: params.row.actionUrl,
+
             }
           },params.row.actionUrl)
         },
-        width: 100
+        width: 500
       },
        {
         title: '类型',

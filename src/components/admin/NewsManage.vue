@@ -288,12 +288,20 @@ export default {
         {
           title: "id",
           key: "id",
-          width: 60
+          width: 100
         },
         {
           title: "标题",
           key: "title",
-          minWidth: 120
+          minWidth: 120,
+          ellipsis:true,
+          render: (h, params) => {
+          return h('span', {
+            attrs: {
+              title: params.row.title
+            },
+          },params.row.title)
+        }
         },
         {
           title: "副标题",
@@ -340,7 +348,15 @@ export default {
         {
           title: "分享简介",
           key: "summary",
-          minWidth: 120
+          minWidth: 120,
+          ellipsis:true,
+          render: (h, params) => {
+          return h('span', {
+            attrs: {
+              title: params.row.summary
+            },
+          },params.row.summary)
+        }
         },
         {
           title: "部门",

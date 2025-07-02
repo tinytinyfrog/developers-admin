@@ -223,7 +223,7 @@ export default {
         {
           title: "id",
           key: "id",
-          width: 60
+          width: 100
         },
         {
           title: "角色名称",

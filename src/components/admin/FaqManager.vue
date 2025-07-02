@@ -85,12 +85,12 @@ export default {
         title: 'id',
         key: 'id',
         fixed: 'left',
-        width: 60
+        width: 100
       }, {
         title: '作者id',
         key: 'authorId',
         fixed: 'left',
-        width: 80
+        width: 100
       }, {
         title: '头像',
         key: 'authorAvatar',
@@ -115,7 +115,15 @@ export default {
       }, {
         title: '标题',
         key: 'title',
-        width: 180
+        width: 260,
+        ellipsis:true,
+        render: (h, params) => {
+          return h('span', {
+            attrs: {
+              title: params.row.title
+            },
+          },params.row.title)
+        } 
       }, {
         title: '浏览量',
         key: 'views',

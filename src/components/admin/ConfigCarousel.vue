@@ -150,7 +150,7 @@ export default {
         title: 'id',
         key: 'id',
         fixed: 'left',
-        width: 60
+        width: 100
       }, {
         title: '类型',
         key: 'type',
@@ -168,7 +168,15 @@ export default {
       }, {
         title: '内容',
         key: 'content',
-        width: 300
+        width: 300,
+        ellipsis:true,
+        render: (h, params) => {
+          return h('span', {
+            attrs: {
+              title: params.row.content
+            },
+          },params.row.content)
+        }
       }, {
         title: '开始时间',
         key: 'startAt',

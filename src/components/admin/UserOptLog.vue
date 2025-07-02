@@ -66,7 +66,7 @@ export default {
         title: '用户id',
         key: 'userId',
         fixed: 'left',
-        width: 80
+        width: 100
       }, {
         title: '头像',
         key: 'avatar',
@@ -95,7 +95,15 @@ export default {
       }, {
         title: '内容',
         key: 'content',
-        width: 800
+        width: 800,
+        ellipsis:true,
+          render: (h, params) => {
+            return h('span', {
+              attrs: {
+                title: params.row.content
+              },
+            },params.row.content)
+          }
       }, {
         title: '操作时间',
         key: 'createAt',
